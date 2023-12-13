@@ -1,0 +1,34 @@
+body, h1, h2, h3, h4, h5, h6, a, p {
+    font-family: 'Helvetica'; 
+    color: teal; 
+    margin: 0;
+    padding: 0;
+   }
+  
+.zz {
+    background-color: pink; 
+    color: teal;
+   }
+
+.abc{
+    color: teal;
+    font: 'Helvetica';
+   }
+
+.setsuku{
+  color: pink;
+}
+
+.queenRegina{
+  margin: auto;
+}
+
+.social-icon img {
+  transition: all 0.3s ease;
+ }
+ 
+ .social-icon:hover img {
+  transform: scale(1.2);
+  filter: brightness(0.8);
+ }
+ 
