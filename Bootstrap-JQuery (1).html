@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap/Jquery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="card text-left col-sm-6 mx-auto">
+      <div class="card-header">Welcome Card</div>
+
+      <div class="card-body">
+        <h5 class="card-title">Welcome to my website!</h5>
+        <p class="card-text">Register user here!</p>
+      </div>
+
+      <div class="card-footer text-body-secondary text-center">
+        <button type="button" class="btn btn-primary" id="btnShowModal">
+          <b>Register</b>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="RegisterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="RegisterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="RegisterModalLabel">Register</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="user-name" class="col-form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="recipient-name"
+                placeholder="ex. Regina George"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="user-section" class="col-form-label">Section</label>
+              <input
+                type="text"
+                class="form-control"
+                id="recipient-section"
+                placeholder="ex. 2 - P"
+              />
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" id="saveChangesBtn">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"
+  ></script>
+
+  <style>
+    body {
+      padding-top: 50px;
+    }
+
+    .card-header {
+      font-size: 30px;
+    }
+
+    .btn-primary {
+      background-color: #f88379;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #f76f63;
+      color: #ffc983;
+    }
+
+    .btn-primary:disabled {
+      background-color: #ffc0cb;
+      color: black;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#btnShowModal").click(function () {
+        $("#RegisterModal").modal("show");
+      });
+
+      $(".close").click(function () {
+        $("#RegisterModal").modal("hide");
+      });
+
+      $(".btn-secondary").click(function () {
+        $("#RegisterModal").modal("hide");
+      });
+
+      var nameInput = $("#recipient-name");
+      var sectionInput = $("#recipient-section");
+      var saveChangesBtn = $("#saveChangesBtn");
+
+      // Disable the "Save Changes" button initially
+      saveChangesBtn.prop("disabled", true);
+
+      // Monitor changes in the input fields
+      nameInput.keyup(function () {
+        var name = nameInput.val();
+        var section = sectionInput.val();
+
+        // Check if the conditions are met
+        if (
+          name.length > 0 &&
+          name.match(/^[A-Za-z\s]+$/) &&
+          section.length > 0 &&
+          section.match(/^\d+-\s*[A-Za-z]$/)
+        ) {
+          // If the conditions are met, change the color to blue and enable the "Save Changes" button
+          nameInput.css("border-color", "blue");
+          saveChangesBtn.prop("disabled", false);
+        } else {
+          // If the conditions are not met, change the color to pink
+          nameInput.css("border-color", "pink");
+          saveChangesBtn.prop("disabled", true);
+        }
+      });
+
+      sectionInput.keyup(function () {
+        var section = sectionInput.val();
+
+        // Check if the conditions are met
+        if (section.length > 0 && section.match(/^\d+-\s*[A-Za-z]$/)) {
+          // If the conditions are met, change the color to blue and enable the "Save Changes" button
+          sectionInput.css("border-color", "blue");
+          saveChangesBtn.prop("disabled", false);
+        } else {
+          // If the conditions are not met, change the color to pink
+          sectionInput.css("border-color", "pink");
+          saveChangesBtn.prop("disabled", true);
+        }
+      });
+
+      $("#saveChangesBtn").click(function () {
+        var name = $("#recipient-name").val();
+        var section = $("#recipient-section").val();
+        $(".card-title").hide();
+        $(".card-text").hide();
+        $(".card-body").append(
+          '<center><p class="card-text">You have successfully registered</p></center>'
+        );
+        $(".card-body").append(
+          '<center><h3 class="card-text">' +
+            name +
+            " | " +
+            section +
+            "</h3></center>"
+        );
+      });
+    });
+  </script>
+</html>
